@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View blogs</title>
+    <link href="style1.css" rel="stylesheet">
+</head>
+<style>
+    .color {
+        background-color: red;
+        color: white;
+    }
+</style>
+<body class="blog-body">
+    <main>
+        <h1> MY BLOGS </h1>
+        <div id="blog" class="blog-style"></div>
+    </main>
+</body>
+<script>
+        function checkUser(){
+        let currentUser = localStorage.getItem("loggedUser");
+        console.log(currentUser);
+        if (!currentUser){
+            window.location.href = "login.html"
+        }
+    }
+    checkUser();
+    
+    let fetchedBlog = JSON.parse(localStorage.getItem("thePost"))
+    console.log(fetchedBlog);
+
+    let blog = document.getElementById("blog");
+    fetchedBlog.forEach((element) => {
+        blog.innerHTML += `
+        <h2> Author:${element.author}</h2>
+        <h3> Title:${element.title}</h3>
+        <h4> Content:${element.post}</h4>
+        `
+
+        if(element.isLike === false) {
+            blog.innerHTML +=`
+            <div>
+                <button onclick="likeIt(this, '${element.id}')" class="view-button">
+                    <i class="icofont-heart"></i>
+                </button>
+                <button onclick="deleteBlog(this, '${element.id}')" class='btn btn-danger'>
+                    &times;
+                </button>
+            </div>
+            <hr>
+            `
+        } else {
+            blog.innerHTML +=`
+            <div>
+                <button onclick="likeIt(this, '${element.id}')" class='color'>
+                    <i class="icofont-heart"></i>
+                </button>
+                <button onclick="deleteBlog(this, '${element.id}')" class='btn btn-danger'>
+                    &times;
+                </button>
+            </div>
+            <hr>
+            `
+        }
+    });
+
+    function likeIt(eniks, el) {
+        console.log(eniks, el);
+        let savingLike = fetchedBlog.find((tinz) => tinz.id === el)
+        console.log(savingLike);
+        if(eniks.classList.contains("color")) {
+            eniks.classList.remove("color")
+            savingLike.isLike = false;
+        } else {
+            eniks.classList.add("color")
+            // savingLike.isLike = true;
+            localStorage.setItem("thePost", JSON.stringify(fetchedBlog));
+        }
+    }
+</script>
+</html>

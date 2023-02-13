@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="signup">
+        <h1>Sign in</h1>
+        <div class="form">
+            <label>Username</label>
+            <input type="text" placeholder="" id="username">
+            <label>Password</label>
+            <input type="text" placeholder="" id="password"> 
+            <button onclick="goLogin(event)">Login</button>
+            <span>Don't have an account?</span>
+            <button onclick="signUp()">Sign Up</button>
+        </div>
+    </div>
+    <script>
+        let username = document.getElementById("username");
+        let password = document.getElementById("password");
+
+        function goLogin(ev) {
+            ev.preventDefault();
+            let user = {
+                username: username.value,
+                password: password.value
+            }
+            localStorage.setItem("loggedUser", JSON.stringify(user));
+            window.location.href = "blog1.html"
+        }
+
+        function signUp() {
+            window.location.href = "signup.html"
+        }
+    </script>
+</body>
+</html>

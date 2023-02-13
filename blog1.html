@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a blog</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <h1 class="h1" id="user"></h1>
+    </div>
+    <main>
+        <h1>Post a blog</h1>
+        <div class="post-div">
+            <label for="">Author</label>
+            <input id="author" class="" type="text">
+        </div>
+        <div class="post-div">
+            <label for="">Title</label>
+            <input id="title" class="" type="text">
+        </div>
+        <div class="post-div">
+            <label for="">Blog content</label>
+            <textarea class="" name="" id="post" cols="30" rows="10"></textarea>
+        </div>
+        <div class="post-div">
+            <button onclick="post(event)" class="post">Post</button>
+        </div>
+    </main>
+    <div class=>
+        <button onclick="logout()" class="logout-button">Logout</button>
+    </div>
+    <script>
+        let myUser = document.getElementById("user")
+
+        function checkUser(){
+        let currentUser = localStorage.getItem("loggedUser");
+        console.log(currentUser);
+        if (!currentUser){
+            window.location.href = "login.html"
+        }
+    }
+    checkUser();
+
+        function logout() {
+         localStorage.removeItem("loggedUser");
+            window.location.href = "login.html"
+        }
+
+        let fetchedBlog = JSON.parse(localStorage.getItem("thePost"))
+        console.log(fetchedBlog);
+        let author = document.getElementById("author");
+        let title = document.getElementById("title");
+        let posted = document.getElementById("post");
+
+        function post(ev) {
+            ev.preventDefault();
+            let myPost = {
+                id: null,
+                author: author.value,
+                title: title.value,
+                post: posted.value,
+                isLike: false
+            }
+            if(fetchedBlog === null) {
+                fetchedBlog = [];
+                myPost.id = fetchedBlog.length + 1;
+                fetchedBlog.push(myPost);
+                localStorage.setItem("thePost", JSON.stringify(fetchedBlog));
+                window.location.href = "viewblogs.html"
+            } else {
+                myPost.id = fetchedBlog.length + 1;
+                fetchedBlog.push(myPost);
+                localStorage.setItem("thePost", JSON.stringify(fetchedBlog));
+                window.location.href = "viewblogs.html"
+            }
+        }
+    </script>
+</body>
+</html>

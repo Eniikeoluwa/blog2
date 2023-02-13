@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="signup">
+        <h1>Sign up</h1>
+        <div class="form">
+            <label>Username</label>
+            <input type="text" placeholder="" id="username">
+            <label>Email</label>
+            <input type="text" placeholder="" id="email">
+            <label>Password</label>
+            <input type="text" placeholder="" id="password"> 
+            <button onclick="signup(event)">Sign Up</button>
+            <span>Already have an account?</span>
+            <button onclick="goLogin()">Login</button>
+        </div>
+    </div>
+    <script>
+        let username = document.getElementById("username");
+        let email = document.getElementById("email");
+        let password = document.getElementById("password");
+
+        function signup(ev) {
+            ev.preventDefault()
+            let user = {
+                username: username.value,
+                email: email.value,
+                password: password.value
+            }
+            localStorage.setItem("loggedUser", JSON.stringify(user));
+            window.location.href = "login.html";
+        } 
+        function goLogin() {
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
